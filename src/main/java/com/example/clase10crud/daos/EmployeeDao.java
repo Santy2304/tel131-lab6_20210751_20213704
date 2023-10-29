@@ -34,8 +34,8 @@ public class EmployeeDao {
                 employee.setBirthDate(rs.getString(2));
                 employee.setFirstName(rs.getString(3));
                 employee.setLastName(rs.getString(4));
-                employee.setGender(rs.getString(4));
-                employee.setHireDate(rs.getString(4));
+                employee.setGender(rs.getString(5));
+                employee.setHireDate(rs.getString(6));
 
                 lista.add(employee);
             }
