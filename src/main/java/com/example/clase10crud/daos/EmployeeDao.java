@@ -123,8 +123,8 @@ public class EmployeeDao {
                     employee.setBirthDate(rs.getString(2));
                     employee.setFirstName(rs.getString(3));
                     employee.setLastName(rs.getString(4));
-                    employee.setGender(rs.getString(4));
-                    employee.setHireDate(rs.getString(4));
+                    employee.setGender(rs.getString(5));
+                    employee.setHireDate(rs.getString(6));
                 }
             }
         } catch (SQLException e) {
@@ -135,7 +135,33 @@ public class EmployeeDao {
     }
 
     public void actualizar(Employee employee){
-        // TODO
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        String url = "jdbc:mysql://localhost:3306/employees";
+        String username = "root";
+        String password = "root";
+
+        String sql = "update employees set birth_date = ?, first_name = ?, last_name = ? , gender =? ,hire_date =?  where emp_no = ?";
+
+        try(Connection connection = DriverManager.getConnection(url,username,password);
+            PreparedStatement pstmt = connection.prepareStatement(sql)){
+
+            pstmt.setString(1,employee.getBirthDate());
+            pstmt.setString(2,employee.getFirstName());
+            pstmt.setString(3,employee.getLastName());
+            pstmt.setString(4,employee.getGender());
+            pstmt.setString(5,employee.getHireDate());
+            pstmt.setInt(6,employee.getEmpNo());
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     public void borrar(String employeeNo) throws SQLException {

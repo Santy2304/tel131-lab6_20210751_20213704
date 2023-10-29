@@ -104,7 +104,31 @@ public class EmployeeServlet extends HttpServlet {
 
                 break;
             case "e":
-                // TODO
+                // editar
+                //request.getParameter("empNo");
+                //request.getParameter("birthDate");
+                //request.getParameter("firstName");
+                //request.getParameter("LastName");
+                //request.getParameter("gender");
+                //request.getParameter("hireDate");
+
+                if(request.getParameter("gender").equals("M") || request.getParameter("gender").equals("F")){
+                    Employee otroEmployee = new Employee();
+
+                    otroEmployee.setEmpNo(Integer.parseInt(request.getParameter("empNo")));
+                    otroEmployee.setBirthDate(request.getParameter("birthDate"));
+                    otroEmployee.setFirstName(request.getParameter("firstName"));
+                    otroEmployee.setLastName(request.getParameter("LastName"));
+                    otroEmployee.setGender(request.getParameter("gender"));
+                    otroEmployee.setHireDate(request.getParameter("hireDate"));
+
+                    employeeDao.actualizar(otroEmployee);
+                    response.sendRedirect(request.getContextPath() + "/EmployeeServlet");
+                }else{
+                    request.setAttribute("employee",employeeDao.buscarPorId(request.getParameter("empNo")));
+                    request.getRequestDispatcher("employee/form_edit.jsp").forward(request,response);
+                }
+
                 break;
             case "s":
                 String textBuscar = request.getParameter("textoBuscar");
