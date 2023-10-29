@@ -79,7 +79,7 @@ public class EmployeeServlet extends HttpServlet {
                 String gender = request.getParameter("gender");
                 String hireDate = request.getParameter("hireDate");
                 String birthDate = request.getParameter("birthDate");
-                String ultimoId = (employeeDao.searchLastId() + 1) + "" ;
+                int ultimoId = (employeeDao.searchLastId() + 1) ;
 
                 boolean isAllValid = false;
 
@@ -90,7 +90,7 @@ public class EmployeeServlet extends HttpServlet {
 
                 if(isAllValid){
                     Employee employee = new Employee();
-                    employee.setEmpNo(Integer.parseInt(ultimoId));
+                    employee.setEmpNo(ultimoId);
                     employee.setBirthDate(birthDate);
                     employee.setFirstName(firstName);
                     employee.setLastName(lastName);

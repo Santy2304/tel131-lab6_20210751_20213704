@@ -71,7 +71,7 @@ public class EmployeeDao {
 
 
 
-        String sql = "insert into employees (emp_no, birth_date, first_name,last_name,gender,hire_date) values (?,?,?,?,?)";
+        String sql = "insert into employees (emp_no, birth_date, first_name,last_name,gender,hire_date) values (?,?,?,?,?,?)";
 
         try(Connection connection = DriverManager.getConnection(url,username,password);
             PreparedStatement pstmt = connection.prepareStatement(sql)){
@@ -175,7 +175,7 @@ public class EmployeeDao {
 
         int ultimoId = 0;
 
-        String sql="SELECT EMP_NO FROM EMPLOYEES ORDER BY EMP_NO LIMIT 1";
+        String sql="SELECT EMP_NO FROM EMPLOYEES ORDER BY EMP_NO desc LIMIT 1";
 
         try (Connection conn = DriverManager.getConnection(url, username, password);
              Statement stmt = conn.createStatement();
