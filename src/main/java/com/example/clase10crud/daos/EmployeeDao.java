@@ -9,6 +9,8 @@ public class EmployeeDao {
     private static final String username = "root";
     private static final String password = "root";
 
+
+
     public ArrayList<Employee> list(){
 
         ArrayList<Employee> lista = new ArrayList<>();
@@ -48,8 +50,51 @@ public class EmployeeDao {
     }
 
     public void create(Employee employee){
-        //TODO
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        String url = "jdbc:mysql://localhost:3306/employees";
+        String username = "root";
+        String password = "root";
+
+        int emp_no = employee.getEmpNo();
+        String birth_date = employee.getBirthDate();
+        String first_name = employee.getFirstName();
+        String last_name = employee.getLastName();
+        String gender = employee.getGender();
+        String hire_date = employee.getHireDate();
+
+
+
+
+        String sql = "insert into employees (emp_no, birth_date, first_name,last_name,gender,hire_date) values (?,?,?,?,?)";
+
+        try(Connection connection = DriverManager.getConnection(url,username,password);
+            PreparedStatement pstmt = connection.prepareStatement(sql)){
+
+            pstmt.setInt(1,emp_no);
+            pstmt.setString(2,birth_date);
+            pstmt.setString(3,first_name);
+            pstmt.setString(4,last_name);
+            pstmt.setString(5,gender);
+            pstmt.setString(6,hire_date);
+
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
+
     }
+
+
+
 
     public Employee buscarPorId(String id){
 
@@ -119,7 +164,33 @@ public class EmployeeDao {
     }
 
     public int searchLastId() {
-        // TODO
-        return 0;
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        String url = "jdbc:mysql://localhost:3306/employees";
+
+        int ultimoId = 0;
+
+        String sql="SELECT EMP_NO FROM EMPLOYEES ORDER BY EMP_NO LIMIT 1";
+
+        try (Connection conn = DriverManager.getConnection(url, username, password);
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            while (rs.next()) {
+                ultimoId =  rs.getInt(1);
+
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return ultimoId;
+
     }
 }
