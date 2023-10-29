@@ -74,7 +74,34 @@ public class EmployeeServlet extends HttpServlet {
 
         switch (action){
             case "crear":
-                // TODO
+                String firstName = request.getParameter("firstName");
+                String lastName = request.getParameter("lastName");
+                String gender = request.getParameter("gender");
+                String hireDate = request.getParameter("hireDate");
+                String birthDate = request.getParameter("birthDate");
+                String ultimoId = (employeeDao.searchLastId() + 1) + "" ;
+
+                boolean isAllValid = false;
+
+                if(gender.equals("M") || gender.equals("F")){
+                    isAllValid = true;
+                }
+
+
+                if(isAllValid){
+                    Employee employee = new Employee();
+                    employee.setEmpNo(Integer.parseInt(ultimoId));
+                    employee.setBirthDate(birthDate);
+                    employee.setFirstName(firstName);
+                    employee.setLastName(lastName);
+                    employee.setGender(gender);
+                    employee.setHireDate(hireDate);
+                    employeeDao.create(employee);
+                    response.sendRedirect(request.getContextPath() + "/EmployeeServlet");
+                }else{
+                    request.getRequestDispatcher("employee/form_new.jsp").forward(request,response);
+                }
+
                 break;
             case "e":
                 // TODO
