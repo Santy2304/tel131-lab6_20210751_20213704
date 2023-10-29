@@ -180,13 +180,46 @@ public class EmployeeDao {
 
             pstmt.setString(1,employeeNo);
             pstmt.executeUpdate();
-
         }
     }
 
     public ArrayList<Employee> searchByName(String name) {
-        // TODO
-        return null;
+        ArrayList<Employee> lista = new ArrayList<>();
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        String url = "jdbc:mysql://localhost:3306/employees";
+
+        String sql = "select * from employees limit 100";
+
+
+        try (Connection conn = DriverManager.getConnection(url, username, password);
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            while (rs.next()) {
+                if(rs.getString(3).equals(name)) {
+                    Employee employee = new Employee();
+                    employee.setEmpNo(rs.getInt(1));
+                    employee.setBirthDate(rs.getString(2));
+                    employee.setFirstName(rs.getString(3));
+                    employee.setLastName(rs.getString(4));
+                    employee.setGender(rs.getString(5));
+                    employee.setHireDate(rs.getString(6));
+
+                    lista.add(employee);
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return lista;
     }
 
     public int searchLastId() {
