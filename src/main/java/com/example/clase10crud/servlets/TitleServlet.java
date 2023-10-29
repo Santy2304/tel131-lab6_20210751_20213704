@@ -47,10 +47,10 @@ public class TitleServlet extends HttpServlet {
                 Title title = TitleDao.buscarPorId(id);
 
                 if(title != null){
-                    request.setAttribute("employee", employee);
-                    request.getRequestDispatcher("employee/form_edit.jsp").forward(request,response);
+                    request.setAttribute("title", title);
+                    request.getRequestDispatcher("title/form_edit.jsp").forward(request,response);
                 }else{
-                    response.sendRedirect(request.getContextPath() + "/EmployeeServlet");
+                    response.sendRedirect(request.getContextPath() + "/TitleServlet");
                 }
                 break;
                 /*
@@ -113,8 +113,6 @@ public class TitleServlet extends HttpServlet {
                     otroTitle.setFromDate(req.getParameter("fromDate"));
                     otroTitle.setToDate(req.getParameter("toDate"));
                     otroTitle.setTitle(req.getParameter("title_name"));
-
-
                     titleDao.actualizar(otroTitle);
                     resp.sendRedirect(req.getContextPath() + "/TitleServlet");
 

@@ -114,6 +114,42 @@ public class TitleDao {
 
     }
 
+    public static Title buscarPorId(String id){
+
+        Title title= null;
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        String url = "jdbc:mysql://localhost:3306/employees";
+
+        String sql = "select * from titles where emp_no = ?";
+
+
+        try (Connection conn = DriverManager.getConnection(url, username, password);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1,id);
+
+            try(ResultSet rs = pstmt.executeQuery()){
+                while (rs.next()) {
+                    title = new Title();
+                    title.setEmpNo(rs.getInt(1));
+                    title.setTitle(rs.getString(2));
+                    title.setFromDate(rs.getString(3));
+                    title.setToDate(rs.getString(4));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return title;
+    }
+
 
 
 

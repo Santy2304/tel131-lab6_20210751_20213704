@@ -13,7 +13,7 @@
 <body>
 <div class='container'>
     <h1 class='mb-3'>Editar un title</h1>
-    <form method="post" action="<%=request.getContextPath()%>/EmployeeServlet?action=e">
+    <form method="post" action="<%=request.getContextPath()%>/TitleServlet?action=e">
         <div class="mb-3">
             <input type="hidden" class="form-control" name="empNo" value="<%=title.getEmpNo()%>">
         </div>
