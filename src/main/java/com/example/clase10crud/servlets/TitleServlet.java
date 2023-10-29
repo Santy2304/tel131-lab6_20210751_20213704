@@ -41,7 +41,7 @@ public class TitleServlet extends HttpServlet {
                 request.getRequestDispatcher("title/form_new.jsp").forward(request,response);
                 break;
 
-                /*
+
             case "edit":
                 String id = request.getParameter("id");
                 Title title = TitleDao.buscarPorId(id);
@@ -53,6 +53,7 @@ public class TitleServlet extends HttpServlet {
                     response.sendRedirect(request.getContextPath() + "/EmployeeServlet");
                 }
                 break;
+                /*
             case "del":
                 String idd = request.getParameter("id");
                 Employee employee1 = employeeDao.buscarPorId(idd);
@@ -72,7 +73,8 @@ public class TitleServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+        //super.doPost(req, resp);
+        resp.setContentType("text/html");
 
         TitleDao titleDao = new TitleDao();
 
@@ -102,10 +104,31 @@ public class TitleServlet extends HttpServlet {
 
                 break;
 
-                /*
+
             case "e":
 
+                    Title otroTitle = new Title();
+
+                    otroTitle.setEmpNo(Integer.parseInt(req.getParameter("empNo")));
+                    otroTitle.setFromDate(req.getParameter("fromDate"));
+                    otroTitle.setToDate(req.getParameter("toDate"));
+                    otroTitle.setTitle(req.getParameter("title_name"));
+
+
+                    titleDao.actualizar(otroTitle);
+                    resp.sendRedirect(req.getContextPath() + "/TitleServlet");
+
+                /*
+                else{
+                    request.setAttribute("employee",employeeDao.buscarPorId(request.getParameter("empNo")));
+                    request.getRequestDispatcher("employee/form_edit.jsp").forward(request,response);
+                }*/
+
                 break;
+
+
+
+            /*
             case "s":
                 String textBuscar = request.getParameter("textoBuscar");
                 ArrayList<Employee> lista = employeeDao.searchByName(textBuscar);
@@ -117,9 +140,6 @@ public class TitleServlet extends HttpServlet {
                 break;*/
         }
     }
-
-
-
 
     }
 

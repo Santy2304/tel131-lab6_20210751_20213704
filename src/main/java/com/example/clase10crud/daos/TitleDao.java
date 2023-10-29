@@ -83,7 +83,34 @@ public class TitleDao {
             throw new RuntimeException(e);
         }
 
+    }
 
+
+    public void actualizar(Title title){
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        String url = "jdbc:mysql://localhost:3306/employees";
+        String username = "root";
+        String password = "root";
+
+        String sql = "update titles set title = ?, from_date = ?, to_date = ? where emp_no = ?";
+
+        try(Connection connection = DriverManager.getConnection(url,username,password);
+            PreparedStatement pstmt = connection.prepareStatement(sql)){
+
+            pstmt.setString(1,title.getTitle());
+            pstmt.setString(2,title.getFromDate());
+            pstmt.setString(3,title.getToDate());
+            pstmt.setInt(4,title.getEmpNo());
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
