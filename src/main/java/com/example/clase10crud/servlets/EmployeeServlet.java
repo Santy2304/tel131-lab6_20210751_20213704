@@ -133,7 +133,6 @@ public class EmployeeServlet extends HttpServlet {
             case "s":
                 String textBuscar = request.getParameter("textoBuscar");
                 ArrayList<Employee> lista = employeeDao.searchByName(textBuscar);
-
                 request.setAttribute("lista",lista);
                 request.setAttribute("busqueda",textBuscar);
                 request.getRequestDispatcher("employee/lista.jsp").forward(request,response);
