@@ -53,20 +53,20 @@ public class TitleServlet extends HttpServlet {
                     response.sendRedirect(request.getContextPath() + "/TitleServlet");
                 }
                 break;
-                /*
+
             case "del":
                 String idd = request.getParameter("id");
-                Employee employee1 = employeeDao.buscarPorId(idd);
+                Title title1 = titleDao.buscarPorId(idd);
 
-                if(employee1 != null){
+                if(title1 != null){
                     try {
-                        employeeDao.borrar(idd);
+                        titleDao.borrar(idd);
                     } catch (SQLException e) {
                         System.out.println("Log: excepcion: " + e.getMessage());
                     }
                 }
-                response.sendRedirect(request.getContextPath() + "/EmployeeServlet");
-                break;*/
+                response.sendRedirect(request.getContextPath() + "/TitleServlet");
+                break;
         }
 
     }

@@ -150,6 +150,28 @@ public class TitleDao {
         return title;
     }
 
+    public void borrar(String Id) throws SQLException {
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        String url = "jdbc:mysql://localhost:3306/employees";
+        String username = "root";
+        String password = "root";
+
+        String sql = "delete from title where = ?";
+
+        try(Connection connection = DriverManager.getConnection(url,username,password);
+            PreparedStatement pstmt = connection.prepareStatement(sql)){
+            pstmt.setString(1,Id);
+            pstmt.executeUpdate();
+
+        }
+    }
+
 
 
 
