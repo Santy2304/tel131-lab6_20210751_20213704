@@ -23,7 +23,10 @@ public class TitleDao {
         String url = "jdbc:mysql://localhost:3306/employees";
 
         // TODO: update query
-        String sql = "select * from titles limit 100";
+        String sql = "select emp_no,title,from_date,to_date from titles group by emp_no limit 100;SELECT emp_no, MAX(title) AS title, MAX(from_date) AS from_date, MAX(to_date) AS to_date\n" +
+                "FROM titles\n" +
+                "GROUP BY emp_no\n" +
+                "LIMIT 100;";
 
 
         try (Connection conn = DriverManager.getConnection(url, username, password);
